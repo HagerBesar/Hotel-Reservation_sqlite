@@ -1,0 +1,404 @@
+#:import utils kivy.utils
+<Label>
+    background_color: (225/255, 218/255, 230/255,1)
+    color: '#b263f7'
+    font_size: 38
+
+
+<TextInput>
+    multiline:False
+    write_tab: False
+
+<Button>
+    font_size: 30
+	background_normal: ''
+	background_color: '#b263f7'
+	color: (225/255, 218/255, 230/255,1)
+	bold:False
+
+
+
+
+
+WindowManager:
+    Home:
+    Guests:
+    Rooms:
+    Reservation:
+
+<Home>:
+    name: "home"
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        padding: 50
+        spacing: 20
+
+        canvas.before:
+            Color:
+                rgba: (225/255, 218/255, 230/255,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Bio HOTEL"
+            bold:True
+
+
+        Button:
+            text: "Guests Table"
+            bold:True
+            on_release:
+                app.root.current="guests"
+                root.manager.transition.direction="left"
+        Button:
+            text: "Rooms Table"
+            bold:True
+            on_release:
+                app.root.current="rooms"
+                root.manager.transition.direction="left"
+        Button:
+            text: "Reservation Table"
+            bold:True
+            on_release:
+                app.root.current="reservation"
+                root.manager.transition.direction="left"
+
+
+
+
+<Guests>:
+    name: "guests"
+
+    reservation : reservation
+    fname : fname
+    lname : lname
+    phone : phone
+    room : room
+    email : email
+    result :result
+
+    GridLayout:
+        cols:1
+        size: root.width, root.height
+        padding: 40
+        spacing: 20
+
+        canvas.before:
+            Color:
+                rgba: (225/255, 218/255, 230/255,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+
+        Label:
+            text: "Guests Table"
+            size_hint:(1, 0.1)
+            bold:True
+
+        GridLayout:
+            cols:2
+            spacing: 15
+            Label:
+                text: 'Reservation NUM : '
+
+            TextInput:
+                id: reservation
+                input_type:'number'
+                input_filter:'int'
+
+            Label:
+                text: 'First Name : '
+
+            TextInput:
+                id: fname
+                input_type:'text'
+
+            Label:
+                text: 'Last Name : '
+
+            TextInput:
+                id: lname
+                input_type:'text'
+
+            Label:
+                text: 'phone Number : '
+
+            LimitInput:
+                id: phone
+                input_type:'text'
+                on_text:
+                    if len(self.text.strip()) >= 11: self.readonly = True
+
+            Label:
+                text: 'Room Number : '
+
+            TextInput:
+                id: room
+                input_type:'number'
+                input_filter:'int'
+
+            Label:
+                text: 'Email : '
+
+            TextInput:
+                id: email
+                input_type:'mail'
+
+            Button:
+			    text: "Insert"
+			    on_press: root.insert()
+            Button:
+			    text: "Select"
+			    on_press: root.select()
+            Button:
+			    text: "Update"
+			    on_press: root.update()
+            Button:
+			    text: "Delete"
+			    on_press: root.delete()
+
+
+
+        Label:
+            id:result
+            text:""
+            size_hint_y: None
+            text_size:self.width, None
+            height:self.texture_size[1]
+            font_size:15
+
+        Button:
+	        text: "Home"
+	        bold:True
+	        size_hint:(1, 0.1)
+	        on_release:
+                app.root.current="home"
+                root.manager.transition.direction="right"
+
+
+
+
+
+<Rooms>:
+    name: "rooms"
+    room:room
+    reservation:reservation
+    fname:fname
+    price:price
+    beds:beds
+    smoking:smoking
+    result:result
+    GridLayout:
+        cols:1
+        size: root.width, root.height
+        padding: 40
+        spacing: 20
+
+        canvas.before:
+            Color:
+                rgba: (225/255, 218/255, 230/255,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+
+        Label:
+            text: "Rooms Table"
+            size_hint:(1, 0.1)
+            bold:True
+
+        GridLayout:
+            cols:2
+            spacing: 15
+            Label:
+                text: 'Reservation NUM : '
+
+            TextInput:
+                id: reservation
+                input_type:'number'
+                input_filter:'int'
+
+
+
+            Label:
+                text: 'First Name : '
+
+            TextInput:
+                id: fname
+                input_type:'text'
+
+            Label:
+                text: 'Room Number : '
+
+            TextInput:
+                id: room
+                input_type:'number'
+                input_filter:'int'
+
+            Label:
+                text: 'Price : '
+
+            TextInput:
+                id: price
+                input_type:'number'
+                input_filter:'int'
+
+            Label:
+                text: 'Beds : '
+
+            TextInput:
+                id: beds
+                input_type:'text'
+
+
+            Label:
+                text: 'Smoking : '
+
+            TextInput:
+                id: smoking
+                input_type:'text'
+
+            Button:
+			    text: "Insert"
+			    on_press: root.insert()
+            Button:
+			    text: "Select"
+			    on_press: root.select()
+            Button:
+			    text: "Update"
+			    on_press: root.update()
+            Button:
+			    text: "Delete"
+			    on_press: root.delete()
+
+
+
+        Label:
+            id:result
+            text:""
+            size_hint_y: None
+            text_size:self.width, None
+            height:self.texture_size[1]
+            font_size:15
+
+        Button:
+	        text: "Home"
+	        bold:True
+	        size_hint:(1, 0.1)
+	        on_release:
+                app.root.current="home"
+                root.manager.transition.direction="right"
+
+
+
+
+<Reservation>:
+    name: "reservation"
+
+    reservation:reservation
+    fname:fname
+    room:room
+    checkin:checkin
+    checkout:checkout
+    result:result
+    GridLayout:
+        cols:1
+        size: root.width, root.height
+        padding: 40
+        spacing: 20
+
+        canvas.before:
+            Color:
+                rgba: (225/255, 218/255, 230/255,1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+
+        Label:
+            text: "Reservation Table"
+            size_hint:(1, 0.1)
+            bold:True
+
+        GridLayout:
+            cols:2
+            spacing: 15
+            Label:
+                text: 'Reservation NUM : '
+
+            TextInput:
+                id: reservation
+                input_type:'number'
+                input_filter:'int'
+
+
+
+            Label:
+                text: 'First Name : '
+
+            TextInput:
+                id: fname
+                input_type:'text'
+
+            Label:
+                text: 'Room Number : '
+
+            TextInput:
+                id: room
+                input_type:'number'
+                input_filter:'int'
+
+            Label:
+                text: 'Check In : '
+
+            TextInput:
+                id: checkin
+                text:'1-2-2022'
+                input_type:'text'
+
+
+            Label:
+                text: 'Check Out : '
+
+            TextInput:
+                id: checkout
+                text:'15-2-2022'
+                input_type:'text'
+
+
+            Button:
+			    text: "Insert"
+			    on_press: root.insert()
+            Button:
+			    text: "Select"
+			    on_press: root.select()
+            Button:
+			    text: "Update"
+			    on_press: root.update()
+            Button:
+			    text: "Delete"
+			    on_press: root.delete()
+
+
+
+        Label:
+            id:result
+            text:""
+            size_hint_y: None
+            text_size:self.width, None
+            height:self.texture_size[1]
+            font_size:15
+
+        Button:
+	        text: "Home"
+	        bold:True
+	        size_hint:(1, 0.1)
+	        on_release:
+                app.root.current="home"
+                root.manager.transition.direction="right"
+
+
