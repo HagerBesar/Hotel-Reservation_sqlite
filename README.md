@@ -1,6 +1,6 @@
 # Hotel-sqlite
 Hotel database  using python(sqlite)
-GUI for :
+GUI using kivy for :
 - select data
 - insert data
 - updata data
